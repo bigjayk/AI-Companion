@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Color system ---- */
+  --color-void: #0e0a13;
+  --color-surface: #17111e;
+  --color-surface-raised: #201828;
+  --color-border: #2c2334;
+  --color-border-strong: #3c3047;
+
+  --color-ink: #f4eef7;
+  --color-ink-muted: #a79ab5;
+  --color-ink-faint: #6f6479;
+
+  --color-rose: #ff3e7f;
+  --color-rose-dim: #c22f63;
+  --color-violet: #8a5cf6;
+  --color-violet-dim: #6c46c9;
+  --color-gold: #f5c451;
+
+  /* ---- Type ---- */
+  --font-display: "Sora", "Segoe UI", sans-serif;
+  --font-body: "Inter", "Segoe UI", sans-serif;
+}
+
+html {
+  background: var(--color-void);
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-void);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-rose);
+  color: var(--color-void);
+}
+
+/* visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-rose);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/apps.js';
+---
+
+<Layout
+  title={`Affiliate Disclosure | ${site.name}`}
+  description={`How ${site.name} makes money and how we choose our rankings.`}
+>
+  <article class="mx-auto max-w-2xl px-6 py-16 text-ink-muted leading-relaxed space-y-5">
+    <h1 class="font-display font-extrabold text-3xl text-ink mb-4">Affiliate Disclosure</h1>
+    <p>
+      {site.name} is reader-supported. When you click a link to one of the apps
+      listed on this site and sign up, we may earn a commission at no extra
+      cost to you. This is how we keep the site running and keep testing new
+      apps.
+    </p>
+    <p>
+      Our rankings are based on our own editorial review of each app's
+      features, pricing, and user experience. Commission arrangements do not
+      determine ranking order.
+    </p>
+    <p>
+      This site and the apps linked from it are intended for adults 18 years
+      of age or older.
+    </p>
+  </article>
+</Layout>

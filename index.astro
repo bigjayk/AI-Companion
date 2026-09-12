@@ -1,0 +1,37 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RankCard from '../components/RankCard.astro';
+import { apps, site } from '../data/apps.js';
+---
+
+<Layout
+  title={`${site.tagline} | ${site.name}`}
+  description={`We compared ${apps.length} AI companion apps on realism, features, and value. Updated ${site.updatedMonth}.`}
+>
+  <section class="mx-auto max-w-5xl px-6 pt-16 pb-10">
+    <p class="text-rose font-display font-bold text-sm tracking-wide">Updated {site.updatedMonth}</p>
+    <h1 class="font-display font-extrabold text-4xl sm:text-5xl mt-3 leading-[1.05] max-w-2xl">
+      {site.tagline}
+    </h1>
+    <p class="text-ink-muted mt-5 max-w-lg leading-relaxed">
+      We tested {apps.length} AI companion apps side by side — chat quality, image
+      realism, memory, and pricing — so you don't have to sign up for all of them
+      to find the one worth your time.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-6 pb-24 flex flex-col gap-5">
+    {apps.map((app, i) => (
+      <RankCard
+        rank={i + 1}
+        slug={app.slug}
+        name={app.name}
+        tagline={app.tagline}
+        description={app.description}
+        image={app.image}
+        affiliateUrl={app.affiliateUrl}
+        features={app.features}
+      />
+    ))}
+  </section>
+</Layout>
