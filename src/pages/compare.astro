@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const reviews = (await getCollection('reviews')).sort((a, b) => a.data.rank - b.data.rank);
+---
+<BaseLayout title="Compare AI Companion Apps — Features & Pricing Side-by-Side">
+  <h1>Compare AI Companion Apps</h1>
+  <p class="lede">A side-by-side look at pricing and top features.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>App</th>
+          <th>Rating</th>
+          <th>Price</th>
+          <th>Top Feature</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {reviews.map((r) => (
+          <tr>
+            <td><a href={`/reviews/${r.data.slug}`}>{r.data.name}</a></td>
+            <td>⭐ {r.data.rating.toFixed(1)}</td>
+            <td>{r.data.price}</td>
+            <td>{r.data.features[0]}</td>
+            <td><a class="btn" href={r.data.affiliateUrl} rel="sponsored nofollow" target="_blank">Visit</a></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</BaseLayout>
+
+<style>
+  .lede { color: var(--text-dim); margin-bottom: 28px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--bg-card); border-radius: var(--radius); overflow: hidden; }
+  th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+  th { color: var(--text-dim); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.03em; }
+  td a { color: var(--text); text-decoration: none; font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+</style>

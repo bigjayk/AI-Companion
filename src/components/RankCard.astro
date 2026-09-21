@@ -1,0 +1,50 @@
+---
+interface Props {
+  rank: number;
+  name: string;
+  slug: string;
+  tagline: string;
+  rating: number;
+  price: string;
+  affiliateUrl: string;
+}
+const { rank, name, slug, tagline, rating, price, affiliateUrl } = Astro.props;
+---
+<div class="card rank-card">
+  <div class="rank-badge">#{rank}</div>
+  <div class="rank-body">
+    <h3><a href={`/reviews/${slug}`}>{name}</a></h3>
+    <p class="tagline">{tagline}</p>
+    <p class="meta">⭐ {rating.toFixed(1)}/5 &nbsp;·&nbsp; {price}</p>
+  </div>
+  <div class="rank-cta">
+    <a class="btn" href={affiliateUrl} rel="sponsored nofollow" target="_blank">Visit Site</a>
+    <a class="read-link" href={`/reviews/${slug}`}>Read review →</a>
+  </div>
+</div>
+
+<style>
+  .rank-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+  .rank-badge {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent-2);
+    min-width: 46px;
+  }
+  .rank-body { flex: 1; }
+  .rank-body h3 { margin: 0 0 4px; font-size: 1.15rem; }
+  .rank-body h3 a { color: var(--text); text-decoration: none; }
+  .tagline { margin: 0 0 6px; color: var(--text-dim); font-size: 0.95rem; }
+  .meta { margin: 0; font-size: 0.9rem; color: var(--text-dim); }
+  .rank-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .read-link { font-size: 0.85rem; color: var(--text-dim); text-decoration: none; }
+  @media (max-width: 600px) {
+    .rank-card { flex-direction: column; align-items: flex-start; }
+    .rank-cta { flex-direction: row; width: 100%; justify-content: space-between; align-items: center; }
+  }
+</style>

@@ -1,0 +1,36 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RankCard from '../components/RankCard.astro';
+
+const reviews = (await getCollection('reviews')).sort((a, b) => a.data.rank - b.data.rank);
+---
+<BaseLayout title="Best AI Companion Apps 2026 — Ranked & Reviewed">
+  <section class="hero">
+    <h1>Best AI Companion Apps, Ranked</h1>
+    <p class="lede">
+      We test and compare the top AI girlfriend and companion apps on features, pricing,
+      and real-world value — updated regularly.
+    </p>
+  </section>
+
+  <section class="rankings">
+    {reviews.map((review) => (
+      <RankCard
+        rank={review.data.rank}
+        name={review.data.name}
+        slug={review.data.slug}
+        tagline={review.data.tagline}
+        rating={review.data.rating}
+        price={review.data.price}
+        affiliateUrl={review.data.affiliateUrl}
+      />
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .hero { max-width: 680px; margin-bottom: 40px; }
+  .hero h1 { font-size: 2.2rem; margin-bottom: 12px; }
+  .lede { color: var(--text-dim); font-size: 1.05rem; }
+</style>

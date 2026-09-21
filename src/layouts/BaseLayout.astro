@@ -1,0 +1,117 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = "Independent, up-to-date comparisons of the top AI companion apps." } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="logo" href="/">AI Companion Compare</a>
+        <nav>
+          <a href="/">Rankings</a>
+          <a href="/compare">Compare</a>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Affiliate disclosure: some links on this site are affiliate links. We may earn a commission at no extra cost to you.</p>
+      </div>
+    </footer>
+
+    <style is:global>
+      :root {
+        --bg: #0f0f14;
+        --bg-card: #1a1a22;
+        --text: #f2f2f5;
+        --text-dim: #a3a3ad;
+        --accent: #ff4d6d;
+        --accent-2: #ffb703;
+        --border: #2a2a33;
+        --radius: 14px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .site-header {
+        border-bottom: 1px solid var(--border);
+        padding: 18px 0;
+        position: sticky;
+        top: 0;
+        background: rgba(15,15,20,0.9);
+        backdrop-filter: blur(8px);
+        z-index: 10;
+      }
+      .site-header .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-weight: 800;
+        font-size: 1.15rem;
+        color: var(--text);
+        text-decoration: none;
+        letter-spacing: -0.02em;
+      }
+      nav a {
+        color: var(--text-dim);
+        text-decoration: none;
+        margin-left: 24px;
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+      nav a:hover { color: var(--text); }
+      main { padding: 40px 20px 60px; }
+      .site-footer {
+        border-top: 1px solid var(--border);
+        padding: 24px 0 40px;
+        color: var(--text-dim);
+        font-size: 0.85rem;
+      }
+      a { color: var(--accent); }
+      h1, h2, h3 { letter-spacing: -0.02em; }
+      .btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+      .btn:hover { opacity: 0.9; }
+      .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 24px;
+      }
+    </style>
+  </body>
+</html>

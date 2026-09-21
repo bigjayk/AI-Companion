@@ -1,0 +1,67 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const reviews = await getCollection('reviews');
+  return reviews.map((review) => ({
+    params: { slug: review.data.slug },
+    props: { review },
+  }));
+}
+
+const { review } = Astro.props;
+const { Content } = await render(review);
+const d = review.data;
+---
+<BaseLayout title={`${d.name} Review — Pricing, Features & Verdict`} description={d.tagline}>
+  <a class="back" href="/">← All rankings</a>
+
+  <header class="review-head">
+    <h1>{d.name} Review</h1>
+    <p class="tagline">{d.tagline}</p>
+    <p class="meta">⭐ {d.rating.toFixed(1)}/5 &nbsp;·&nbsp; {d.price}</p>
+    <a class="btn" href={d.affiliateUrl} rel="sponsored nofollow" target="_blank">Visit {d.name} →</a>
+  </header>
+
+  <section class="card">
+    <h2>Key Features</h2>
+    <ul>
+      {d.features.map((f: string) => <li>{f}</li>)}
+    </ul>
+  </section>
+
+  <section class="prose">
+    <Content />
+  </section>
+
+  <section class="pros-cons">
+    <div class="card">
+      <h2>Pros</h2>
+      <ul>{d.pros.map((p: string) => <li>{p}</li>)}</ul>
+    </div>
+    <div class="card">
+      <h2>Cons</h2>
+      <ul>{d.cons.map((c: string) => <li>{c}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="card verdict">
+    <h2>Verdict</h2>
+    <p>{d.verdict}</p>
+    <a class="btn" href={d.affiliateUrl} rel="sponsored nofollow" target="_blank">Try {d.name} →</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .back { display: inline-block; margin-bottom: 24px; color: var(--text-dim); text-decoration: none; font-size: 0.9rem; }
+  .review-head { margin-bottom: 32px; }
+  .review-head h1 { font-size: 2rem; margin-bottom: 8px; }
+  .tagline { color: var(--text-dim); margin: 0 0 10px; }
+  .meta { color: var(--text-dim); margin: 0 0 18px; }
+  section.card, section.prose { margin-bottom: 24px; }
+  .prose { color: var(--text); font-size: 1rem; }
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 600px) { .pros-cons { grid-template-columns: 1fr; } }
+  .verdict { border-color: var(--accent); }
+</style>
